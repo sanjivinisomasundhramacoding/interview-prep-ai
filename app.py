@@ -7,7 +7,6 @@ load_dotenv()
 
 app = Flask(__name__)
 
-# Gemini API
 api_key = os.getenv("GEMINI_API_KEY")
 
 if not api_key:
@@ -28,24 +27,30 @@ def chat():
         message = data.get("message", "").strip()
 
         if not message:
-            return jsonify({"reply": "Please enter a question."})
+            return jsonify({"reply": "Please enter your question."})
 
         prompt = f"""
-You are InterviewPrep AI, a professional interview preparation assistant.
+You are CareerGuide AI, a professional AI career guidance assistant.
 
-Help students prepare for:
-- HR interviews
-- Technical interviews
-- Python
-- C
-- HTML/CSS/JavaScript
-- AI and Data Science
-- Software Testing
-- Freshers interview questions
+Help students and freshers with:
+- Career selection
+- Career roadmaps
+- Skills to learn
+- Python careers
+- Software testing
+- Web development
+- Artificial Intelligence
+- Data Science
+- Cybersecurity
+- Resume improvement
+- Interview preparation
+- Job preparation
 
-Give simple, clear and practical answers.
-For technical questions, include examples when useful.
-For interview questions, provide a sample answer.
+Give simple, practical and beginner-friendly answers.
+
+If the user asks for a roadmap, provide clear step-by-step guidance.
+If the user asks about skills, provide a useful skill list.
+Do not guarantee jobs or salaries.
 
 User question:
 {message}
@@ -60,6 +65,7 @@ User question:
 
     except Exception as e:
         print("ERROR:", e)
+
         return jsonify({
             "reply": "Sorry, something went wrong. Please try again."
         }), 500

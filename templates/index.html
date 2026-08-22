@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>InterviewPrep AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <div class="logo">💼</div>
+
+        <div>
+            <h1>InterviewPrep AI</h1>
+            <p>Your AI Interview Preparation Assistant</p>
+        </div>
+    </header>
+
+    <div class="topics">
+        <button onclick="quickQuestion('Give me 5 common HR interview questions')">
+            👤 HR Questions
+        </button>
+
+        <button onclick="quickQuestion('Give me Python interview questions for freshers')">
+            🐍 Python
+        </button>
+
+        <button onclick="quickQuestion('Give me software testing interview questions')">
+            🧪 Testing
+        </button>
+
+        <button onclick="quickQuestion('Give me a self introduction for a fresher')">
+            🎤 Self Introduction
+        </button>
+    </div>
+
+    <main id="chatBox">
+
+        <div class="message bot">
+            <div class="avatar">🤖</div>
+
+            <div class="bubble">
+                <strong>InterviewPrep AI</strong>
+                <p>
+                    Hello! 👋 I'm your AI interview assistant.
+                    Ask me anything about HR, technical interviews,
+                    Python, testing, AI or career preparation.
+                </p>
+            </div>
+        </div>
+
+    </main>
+
+    <div class="input-area">
+
+        <input
+            type="text"
+            id="messageInput"
+            placeholder="Ask your interview question..."
+            autocomplete="off"
+        >
+
+        <button id="sendButton" onclick="sendMessage()">
+            Send ➤
+        </button>
+
+    </div>
+
+    <div class="footer">
+        Powered by Gemini AI • InterviewPrep AI
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>

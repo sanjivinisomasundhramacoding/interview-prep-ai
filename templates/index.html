@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>CareerGuide AI</title>
+    <title>InterviewPrep AI</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
@@ -18,12 +18,12 @@
     <header>
 
         <div class="logo">
-            🎯
+            🎤
         </div>
 
         <div>
-            <h1>CareerGuide AI</h1>
-            <p>Your Personal AI Career Assistant</p>
+            <h1>InterviewPrep AI</h1>
+            <p>Your Personal AI Interview Assistant</p>
         </div>
 
     </header>
@@ -31,20 +31,20 @@
 
     <div class="quick-buttons">
 
-        <button onclick="quickQuestion('Which career is best for a Python beginner?')">
-            🐍 Python Career
+        <button onclick="quickQuestion('Give me common HR interview questions for freshers')">
+            👔 HR Questions
         </button>
 
-        <button onclick="quickQuestion('Give me a roadmap to become a software tester')">
-            🧪 Testing Roadmap
+        <button onclick="quickQuestion('Give me common Python interview questions with simple answers')">
+            🐍 Python Interview
         </button>
 
-        <button onclick="quickQuestion('What skills are required for AI and Data Science?')">
-            🤖 AI & Data Science
+        <button onclick="quickQuestion('Give me software testing interview questions for freshers')">
+            🧪 Testing Interview
         </button>
 
-        <button onclick="quickQuestion('How can I improve my resume as a fresher?')">
-            📄 Resume Tips
+        <button onclick="quickQuestion('How should I introduce myself in an interview as a fresher?')">
+            🗣️ Self Introduction
         </button>
 
     </div>
@@ -55,17 +55,18 @@
         <div class="message bot">
 
             <div class="avatar">
-                🎯
+                🎤
             </div>
 
             <div class="bubble">
 
-                <strong>CareerGuide AI</strong>
+                <strong>InterviewPrep AI</strong>
 
                 <p>
-                    Hello! 👋 I'm CareerGuide AI.
-                    Ask me about careers, skills, roadmaps,
-                    resumes, jobs or interview preparation.
+                    Hello! 👋 I'm InterviewPrep AI.
+                    Ask me about HR questions, technical interviews,
+                    coding, self introduction, resume-based questions
+                    or mock interview preparation.
                 </p>
 
             </div>
@@ -80,7 +81,7 @@
         <input
             type="text"
             id="messageInput"
-            placeholder="Ask about your career..."
+            placeholder="Ask about interview preparation..."
             autocomplete="off"
         >
 
@@ -92,7 +93,7 @@
 
 
     <footer>
-        Powered by Gemini AI • CareerGuide AI
+        Powered by Gemini AI • InterviewPrep AI
     </footer>
 
 </div>

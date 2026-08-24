@@ -10,24 +10,28 @@ async function sendMessage() {
         return;
     }
 
+    // Add user message
     addMessage(message, "user");
 
+    // Clear input
     input.value = "";
 
+    // Disable send button
     sendButton.disabled = true;
     sendButton.innerText = "Thinking...";
 
 
+    // Create thinking message
     const typing = document.createElement("div");
 
     typing.className = "message bot";
     typing.id = "typing";
 
     typing.innerHTML = `
-        <div class="avatar">🎯</div>
+        <div class="avatar">🎤</div>
 
         <div class="bubble">
-            <strong>CareerGuide AI</strong>
+            <strong>InterviewPrep AI</strong>
             <p>Thinking...</p>
         </div>
     `;
@@ -52,9 +56,27 @@ async function sendMessage() {
         });
 
 
-        const data = await response.json();
+        // Get response as text first
+        const responseText = await response.text();
+
+        let data;
+
+        try {
+            data = JSON.parse(responseText);
+        } catch (jsonError) {
+
+            console.error(
+                "Invalid JSON response:",
+                responseText
+            );
+
+            throw new Error(
+                "Server returned an invalid response."
+            );
+        }
 
 
+        // Remove thinking message
         const typingMessage =
             document.getElementById("typing");
 
@@ -63,33 +85,62 @@ async function sendMessage() {
         }
 
 
-        addMessage(data.reply, "bot");
+        // Handle server errors
+        if (!response.ok) {
+
+            addMessage(
+                data.reply ||
+                "Sorry, something went wrong. Please try again.",
+                "bot"
+            );
+
+            return;
+        }
+
+
+        // Add AI response
+        addMessage(
+            data.reply ||
+            "Sorry, I could not generate a response.",
+            "bot"
+        );
 
 
     } catch (error) {
 
-        console.error(error);
+        console.error("Chat error:", error);
 
+
+        // Remove thinking message
         const typingMessage =
             document.getElementById("typing");
 
         if (typingMessage) {
             typingMessage.remove();
         }
+
 
         addMessage(
             "Unable to connect to the server. Please try again.",
             "bot"
         );
+
+    } finally {
+
+        // Enable send button
+        sendButton.disabled = false;
+        sendButton.innerText = "Send ➤";
+
+        input.focus();
+
+        chatBox.scrollTop = chatBox.scrollHeight;
     }
-
-
-    sendButton.disabled = false;
-    sendButton.innerText = "Send ➤";
-
-    input.focus();
 }
 
+
+/* --------------------------------
+   ADD MESSAGE
+-------------------------------- */
 
 function addMessage(text, type) {
 
@@ -107,21 +158,29 @@ function addMessage(text, type) {
 
         messageDiv.innerHTML = `
             <div class="bubble">
-                <p>${escapeHTML(text)}</p>
+                <strong>You</strong>
+                <p></p>
             </div>
         `;
 
     } else {
 
         messageDiv.innerHTML = `
-            <div class="avatar">🎯</div>
+            <div class="avatar">🎤</div>
 
             <div class="bubble">
-                <strong>CareerGuide AI</strong>
-                <p>${escapeHTML(text)}</p>
+                <strong>InterviewPrep AI</strong>
+                <p></p>
             </div>
         `;
     }
+
+
+    // Safely display text
+    const paragraph =
+        messageDiv.querySelector("p");
+
+    paragraph.textContent = text;
 
 
     chatBox.appendChild(messageDiv);
@@ -130,6 +189,10 @@ function addMessage(text, type) {
         chatBox.scrollHeight;
 }
 
+
+/* --------------------------------
+   QUICK QUESTIONS
+-------------------------------- */
 
 function quickQuestion(question) {
 
@@ -142,22 +205,18 @@ function quickQuestion(question) {
 }
 
 
-function escapeHTML(text) {
-
-    const div =
-        document.createElement("div");
-
-    div.textContent = text;
-
-    return div.innerHTML;
-}
-
+/* --------------------------------
+   ENTER KEY
+-------------------------------- */
 
 document
     .getElementById("messageInput")
     .addEventListener("keydown", function(event) {
 
         if (event.key === "Enter") {
+
+            event.preventDefault();
+
             sendMessage();
         }
 
